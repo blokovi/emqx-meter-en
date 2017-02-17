@@ -110,8 +110,6 @@ Overall: The EMQ response time is less than 50ms within 200k connections (config
 Dual SSL
 -----------
 
-总体结果：双向认证的时候设置成连接断开后不重新连接(setConnectAttemptsMax和setReconnectAttemptsMax都设置成为0)，响应时间增长到秒级，成功率在20万连接的情况降至86%，内存也基本耗尽。同样在10万连接的情况下，双向认证比单向认证多出了约3GB的内存使用。
-
 Overall: Response time reaches second level in dual SSL connections (setConnectAttemptsMax and setReconnectAttemptsMax are set to 0), and successful rate is 86% with 200k connections, and memory is also exhausted. Comparing to SSL, dual SSL uses more than 3GB memory when there are 300k of connections.
 
 .. NOTE:: Test agent configuration：1 VM 30000 VU (2 dockers*15000 VU)
