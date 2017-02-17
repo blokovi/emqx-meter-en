@@ -21,17 +21,17 @@ This is EMQ-2.0 performance benchmark report，was produced by EMQ and performan
 EMQ message broker is develop and maintained by 杭州小莉科技.
 
 +------------+--------------------------------+
-| 公司:      | 杭州小莉科技有限公司           |
+| Company    | 杭州小莉科技有限公司           |
 +------------+--------------------------------+
-| 官网:      | http://emqtt.com               |
+| Website    | http://emqtt.com               |
 +------------+--------------------------------+
-| 电话:      | 400-696-5502                   |
+| Phone      | 400-696-5502                   |
 +------------+--------------------------------+
-| 邮箱:      | contact@emqtt.io               |
+| Email      | contact@emqtt.io               |
 +------------+--------------------------------+
-| 微信:      | emqttd                         |
+| Wechat     | emqttd                         |
 +------------+--------------------------------+
-| 微博:      | http://weibo.com/emqtt         |
+| Weibo      | http://weibo.com/emqtt         |
 +------------+--------------------------------+
 | Twitter:   | @emqtt                         |
 +------------+--------------------------------+
