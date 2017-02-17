@@ -1,37 +1,42 @@
 
 .. _faq:
 
-=============
-常见问题(FAQ)
-=============
+================================
+Frequently Asked Questions (FAQ)
+================================
 
-1. TCP连接测试，是否配置了重连。如果不配置重连，是否可用认为实际连接数可能并没有达到测试设置的最大连接数。
+Q1. Do we have reconnect configured in TCP connection test? If reconnect is not used, shall we think that actual connections are not as many as the number we planned in the test?
+A1.
+EMQ：Reconnection is not configure. Actual connections are reported by EMQ server via stats, listener metrics，it's nothing to do with reconnection. EMQ didn't set max connection limit but just test server CPU and memory utilization under 1 million connections. In EMQ 1.0, we tested up to 1.3 million connections and 0.9 million in ZAKER news client production environment.
 
-EMQ答复：TCP连接测试未设置重连。实际连接数是通过EMQ的stats、listener指标统计，与是否重连没关系。EMQ本次测试并未测试最高的连接数，只是例行测试100万连接的CPU、内存占用情况。1.0版本最高测试到130万连接，ZAKER新闻客户端产品环境下90万。
+XMeter: No reconnection in the test. There's a ping package from each connection every 5 minutes in order to keep connection active. Actual connection statistics are acquired via EMQ server stats,listener metrics.
 
-XMeter答复: 所有连接测试都没有配置重连，连接建立后每5分钟发起一个ping包，通过EMQ的stats、listener指标统计可以看到实际就是有100万连接，与是否重连没关系。
 
-2. 连接测试中的响应时间，是指创建连接到连接成功的时间吗？
+Q2. Regarding response time in connection test, is this the time spent from connection request to successfully connected?
 
-EMQ答复：响应时间为TCP连接建立，发送CONNECT报文，接收到CONNACK报文。
+A2. EMQ：Response time is from TCP connection creation, MQTT CONNECT package transmit, to CONNACK package arrival.
 
-3. 吞吐量测试中，没有丢包数量的统计。 请问下，是否有这个结果的统计？
 
-EMQ答复：吞吐测试在青云北京三区主要测试EMQ每秒处理消息数量，没有丢包率的指标。在EMQ处理能力之内，QoS0消息内网一般不会丢包，QoS1/2消息支持回执与重传可以避免丢包。
+Q3. The report says there's no package loss in throughput test, do we have more details about this result?
+A3.
+EMQ: Throughput test is performed in QingCloud pek3a region. The main purpose is to measure how many messages per second EMQ can process without package loss. Within the EMQ server capacity, QoS0 message will not lose in the intranet environment, QoS1/2 message support confirmation and retransmission to avoid package loss.
 
-XMeter答复：我们没有仔细统计这个值，在测试过程中发现这样的现象：1）如果服务器端的工作负载在正常情况下，能将pub的包进行实时转发，没有丢包现象; 2）如果服务器端的工作负载比较重，除了消息转发的时间拉长，基本也没有丢包现象，但是没有做过精确统计。
+XMeter: We didn't explicitly measure package loss during the test, but there's our observation: 1) If EMQ server works under normal workload, all packages can be forwarded to subscriber, and there's no package loss; 2) Under heavy workload, it takes longer time for PUB client to send out messages, but no message loss either.
 
-4. 吞吐量测试中，topic的数量是怎么设计的呢？
 
-EMQ答复：吞吐测试是先创建10万线背景连接和20万Topic。
+Q4. How do we design topic number in throughput test?
+A4.
+EMQ: We establish 100000 background connections and 200000 topics firstly.
 
-XMeter：所有的连接测试、以及背景连接，每个连接都会sub一个单独的topic。100万连接就sub了100万个topic，而每个吞吐测试中的10万背景连接都有10万个topic。但是所有的吞吐测试的实际payload的pub和sub间都是用的是一个topic。
+XMeter: In all connection test including background connection test, every connection will subscribe to a particular topic. One million connection subscribe to 1 million topics, and as part of throughput test, 100000 background connections involves 100000 topics. However, all PUB and SUB clients in the throughput test share a same topic, so that all messages will be transferred from PUB to SUB.
 
-5. 吞吐量测试中，测试分别统计的fan-in和fan-out，fan-in测试的时候，没有sub。有没有两个值都同时统计的测试结果呢？
 
-EMQ答复: 共享订阅测试是双向。因为大部分应用场景下PUB消费需要用共享订阅平衡负载。
+Q5. In throughput test, fan-in and fan-out are calculated separately. There's no SUB in fan-in test. Do we have test results that have both fan-in and fan-out measurements? 
 
-6. 我们的应用场景中，流量更多是从多publisher到少量的subscriber
+A5. EMQ: Shared subscription test is bi-directional. In most application scenarios, PUB messages need to be consumed via shared subscription to balance the load.
 
-EMQ答复：共享订阅或Fastlane订阅，专门处理数据采集类的多PUB少SUB场景。
+
+Q6. In our usage scenario, messages flow from a large number of publishers to a small number of subscribers. How do we best handle this pattern?
+
+A6. EMQ: Use shared subscription or Fastlane subscription, which is designed for more publisher less subscriber scenarios.
 
