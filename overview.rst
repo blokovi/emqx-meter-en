@@ -41,9 +41,9 @@ It could be a big test scenario combination, after considering test coverage and
 Read test report
 ----------------
 
-There are some links to www.xmeter.net in the document, you can directly read the report online. These reports include some basic test measurements collectd from client, the measurements provided by EMQ are already included. If you'd like to read the reports, just register an account in www.xmeter.net and click the links.
+There are some links to www.xmeter.net in the document, you can directly read the report online. These reports include some basic test measurements collected from client, the measurements provided by EMQ are already included in this doc. If you'd like to open the links, just register an account in www.xmeter.net with 1 step and then click them.
 
-Please notice: Some of measurements in subscription report are not applicable because the subscription sampler's limitation when the performance test is executed at Dec, 2016. Only virtual user number, response code successful rate and download byte size are applicable. The latest new version of `JMeter-MQTT`_ MQTT JMeter plugin, which was released at Feb, 2016,  has fixed the problem. The response time and throughput measurements are also applicable, so we strongly recommend you to use latest JMeter MQTT plugin.
+Please notice: Some of measurements in subscription report are not applicable because the JMeter sub plugin limitation when the performance test is executed at Dec, 2016. Only virtual user number, response code successful rate and download byte size are applicable. The latest new version of `JMeter-MQTT`_ MQTT JMeter plugin, which was released at Feb, 2017,  has fixed the problem. The response time and throughput measurements are also applicable, so we strongly recommend you to use latest JMeter MQTT plugin.
 
 .. _XMeter: http://xmeter.net
 .. _JMeter-MQTT: https://github.com/emqtt/mqtt-jmeter
