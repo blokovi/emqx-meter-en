@@ -1,7 +1,7 @@
 EMQ-2.0 performance benchmark test report
 ==========================================
 
-EMQ-2.0 performance benchmark, from partner [XMeter.Net](https://www.xmeter.net)。
+EMQ-2.0 performance benchmark, from partner [XMeter](https://www.xmeter.net)。
 
 Acknowledgments
 ----------------
