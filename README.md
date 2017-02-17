@@ -1,14 +1,15 @@
-EMQ-2.0 性能测试报告
-====================
+EMQ-2.0 performance benchmark test report
+==========================================
 
-EMQ-2.0版本性能测试报告，来自合作伙伴[XMeter.Net](https://www.xmeter.net)。
+EMQ-2.0 performance benchmark, from partner [XMeter.Net](https://www.xmeter.net)。
 
-致谢
-----
+Acknowledgments
+----------------
 
-[XMeter.net](https://www.xmeter.net) [QingCloud.Com](https://www.qingcloud.com)
+[XMeter.net](https://www.xmeter.net) 
+[QingCloud.Com](https://www.qingcloud.com)
 
-版权
-----
+Copyrights
+----------
 
 http://emqtt.com
