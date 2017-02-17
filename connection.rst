@@ -24,16 +24,16 @@ Overall: The response time is less than 15ms within 1 million connection, succes
 |    300000           |        1000     |         600         |     912            |     9ms               |     7.02s         |    1ms            | 100%            | 
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
-+-------------------------------+-----------------------+-------------------------------------------------+
-|     负载(Load)                |      CPU              |                   Memory                        |
-+===============================+=======================+=================================================+
-| CPU shortterm Load最大达到2.3 | CPU使用率在4%-31%之间 |  Memory使用随着并发用户量增加而增大，最大到4.2G |
-+-------------------------------+-----------------------+-------------------------------------------------+
++--------------------------------+--------------------------+-------------------------------------------------------------------+
+|     CPU Load                   |      CPU usage           |                   Memory                                          |
++================================+==========================+===================================================================+
+| CPU shortterm load reaches 2.3 | CPU usage between 4%-31% |  Memory grows with increasing of connections, max value is 4.2GB. |
++--------------------------------+--------------------------+-------------------------------------------------------------------+
 
-30万用户并发测试报告: https://www.xmeter.net/commercialPage.html#/testrunMonitor/895167331
+300k connection online test report: https://www.xmeter.net/commercialPage.html#/testrunMonitor/895167331
 
-50万线
-------
+500k conn
+---------
 
 +------------------+-----------------------+-------------------+------------+--------------+--------------+--------------+--------+
 | 虚拟用户数量(VU) | 每秒新增并发链接(CPS) | 总计运行时间(Sec) | 平均吞吐量 | 平均响应时间 | 最大响应时间 | 最小响应时间 | 成功率 |
@@ -47,10 +47,10 @@ Overall: The response time is less than 15ms within 1 million connection, succes
 | CPU shortterm Load最大达到3.88 | CPU使用率在7%-65%之间 |  Memory使用随着并发用户量增加而增大，最大到7.05G|
 +--------------------------------+-----------------------+-------------------------------------------------+
 
-50万用户并发测试报告: https://www.xmeter.net/commercialPage.html#/testrunMonitor/1231188268
+500k connection online test report: https://www.xmeter.net/commercialPage.html#/testrunMonitor/1231188268
 
-100万线
--------
+1 million conn
+--------------
 
 +------------------+-----------------------+-------------------+------------+--------------+--------------+--------------+--------+
 | 虚拟用户数量(VU) | 每秒新增并发链接(CPS) | 总计运行时间(Sec) | 平均吞吐量 | 平均响应时间 | 最大响应时间 | 最小响应时间 | 成功率 |
@@ -64,18 +64,18 @@ Overall: The response time is less than 15ms within 1 million connection, succes
 | CPU shortterm Load最大达到6    | CPU使用率在6%-80%之间 | Memory使用随着并发用户量增加而缓慢增加，最大到13.4G |
 +--------------------------------+-----------------------+-----------------------------------------------------+
 
-100万用户并发测试报告: https://www.xmeter.net/commercialPage.html#/testrunMonitor/2084906193
+1 million connection online test report: https://www.xmeter.net/commercialPage.html#/testrunMonitor/2084906193
 
------------
-SSL单向认证
------------
+------------------
+SSL authentication
+------------------
 
-总体结果：EMQ在20万连接之内单向认证的连接，并且设置不重新连接的情况下，响应时间在50ms以内，成功率为100%，CPU和内存使用基本正常。如果在使用fusesource缺省的重新连接的情况下，会产生大量的重新连接请求，在测试30万连接的时候，发现多出了50%的conn连接请求，而connack却大幅小于30万，这可能是EMQ服务器端检测到有第二次重连的时候就会自动断开连接导致的，此配置下，在25万连接的时候24GB内存耗尽。
+Overall: The EMQ response time is less than 50ms within 200k connections (configured with not auto reconnect after disconnect), the successful rate is 100%, the CPU and memory usage are also normal. But with the default configuration of fusesource (auto reconnrect after disconnect), then it produces lots of re-connect request, and with 300k connection test, we observed additional 50% of connect request, which actual established connection is less than 300k. It possibly caused by EMQ disconnect automatically when detecting same client re-connect for the 2nd time. In such configuration, all of 24GB mememory is exhausted.
 
-.. NOTE:: 测试机配置：1台虚拟机支持30000 VU (2个docker*15000 VU)
+.. NOTE:: Test agent configuration：1 VM 30000 VU (2 dockers*15000 VU)
 
-10万线
-------
+100k conn
+---------
 
 +------------------+-----------------------+-------------------+------------+--------------+--------------+--------------+--------+
 | 虚拟用户数量(VU) | 每秒新增并发链接(CPS) | 总计运行时间(Sec) | 平均吞吐量 | 平均响应时间 | 最大响应时间 | 最小响应时间 | 成功率 |
@@ -90,8 +90,8 @@ SSL单向认证
 |                                |                       | 增加而缓慢增加最大到11.88G  | setReconnectAttemptsMax=0                |
 +--------------------------------+-----------------------+-----------------------------+------------------------------------------+
 
-20万线
-------
+200k conn
+---------
 
 +------------------+-----------------------+-------------------+------------+--------------+--------------+--------------+--------+
 | 虚拟用户数量(VU) | 每秒新增并发链接(CPS) | 总计运行时间(Sec) | 平均吞吐量 | 平均响应时间 | 最大响应时间 | 最小响应时间 | 成功率 |
@@ -107,15 +107,17 @@ SSL单向认证
 +--------------------------------+-----------------------+-----------------------------+------------------------------------------+
 
 -----------
-SSL双向认证
+Dual SSL
 -----------
 
 总体结果：双向认证的时候设置成连接断开后不重新连接(setConnectAttemptsMax和setReconnectAttemptsMax都设置成为0)，响应时间增长到秒级，成功率在20万连接的情况降至86%，内存也基本耗尽。同样在10万连接的情况下，双向认证比单向认证多出了约3GB的内存使用。
 
-.. NOTE:: 测试机配置：1台虚拟机支持30000 VU (2个docker*15000 VU)
+Overall: Response time reaches second level in dual SSL connections (setConnectAttemptsMax and setReconnectAttemptsMax are set to 0), and successful rate is 86% with 200k connections, and memory is also exhausted. Comparing to SSL, dual SSL uses more than 3GB memory when there are 300k of connections.
 
-10万线
-------
+.. NOTE:: Test agent configuration：1 VM 30000 VU (2 dockers*15000 VU)
+
+100k conn
+---------
 
 +------------------+-----------------------+-------------------+------------+--------------+--------------+--------------+--------+
 | 虚拟用户数量(VU) | 每秒新增并发链接(CPS) | 总计运行时间(Sec) | 平均吞吐量 | 平均响应时间 | 最大响应时间 | 最小响应时间 | 成功率 |
@@ -130,8 +132,8 @@ SSL双向认证
 |                                |                       | 增加而缓慢增加最大到14.92G  | setReconnectAttemptsMax=0                |
 +--------------------------------+-----------------------+-----------------------------+------------------------------------------+
 
-20万线
-------
+200k conn
+---------
 
 +------------------+-----------------------+-------------------+------------+--------------+--------------+--------------+--------+
 | 虚拟用户数量(VU) | 每秒新增并发链接(CPS) | 总计运行时间(Sec) | 平均吞吐量 | 平均响应时间 | 最大响应时间 | 最小响应时间 | 成功率 |
