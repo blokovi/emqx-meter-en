@@ -297,7 +297,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'EMQ20Benchmark', u'EMQ-2.0 Benchmark Report',
+    (master_doc, 'EMQ20Benchmark', 'EMQ-2.0 Benchmark Report',
      author, 'Feng Lee', 'EMQ-2.0 Benchmark Report',
      'Miscellaneous'),
 ]
@@ -318,10 +318,10 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'EMQ-2.0 Benchmark Report'
-epub_author = u'Fahua Jin<jinfahua@xmeter.net>'
-epub_publisher = u'EMQ Enterprise, Inc'
-epub_copyright = u'2016, EMQ Enterprise, Inc'
+epub_title = 'EMQ-2.0 Benchmark Report'
+epub_author = 'Fahua Jin<jinfahua@xmeter.net>'
+epub_publisher = 'EMQ Enterprise, Inc'
+epub_copyright = '2016, EMQ Enterprise, Inc'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = project
