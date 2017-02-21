@@ -1,10 +1,10 @@
-EMQ-2.0 performance benchmark test report
-==========================================
+EMQ-2.0 Performance Benchmark Report
+====================================
 
-EMQ-2.0 performance benchmark, from partner [XMeter](https://www.xmeter.net)。
+[EMQ Benchmark Report](http://emq-xmeter-benchmark-cn.readthedocs.io/en/latest/) on readthedocs.org
 
 Acknowledgments
-----------------
+---------------
 
 [XMeter.net](https://www.xmeter.net) 
 
@@ -13,4 +13,5 @@ Acknowledgments
 Copyrights
 ----------
 
-http://emqtt.com
+EMQ-2.0 performance benchmark, from partner [XMeter](https://www.xmeter.net)
+
