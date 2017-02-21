@@ -1,7 +1,7 @@
 EMQ-2.0 Performance Benchmark Report
 ====================================
 
-[EMQ Benchmark Report](http://emq-xmeter-benchmark-cn.readthedocs.io/en/latest/) on readthedocs.org
+[EMQ Benchmark Report](http://emq-xmeter-benchmark-en.readthedocs.io/en/latest/) on readthedocs.org
 
 Acknowledgments
 ---------------
