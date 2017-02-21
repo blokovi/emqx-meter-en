@@ -7,7 +7,7 @@
 EMQ-2.0 Performance benchmark report
 ====================================
 
-This is EMQ-2.0 performance benchmark report，was produced by EMQ and performance test service provider `XMeter`_ .
+This is EMQ-2.0 performance benchmark report，released by EMQ and performance test service provider `XMeter`_ .
 
 .. toctree::
    :maxdepth: 2
@@ -18,20 +18,16 @@ This is EMQ-2.0 performance benchmark report，was produced by EMQ and performan
    lantency
    faq
 
-EMQ message broker is develop and maintained by 杭州小莉科技.
+EMQ MQTT message broker is developed and maintained by EMQ Enterprise, Inc.
 
 +------------+--------------------------------+
-| Company    | 杭州小莉科技有限公司           |
+| Company    | EMQ Enterprise, Inc            |
 +------------+--------------------------------+
-| Website    | http://emqtt.com               |
+| Website    | http://emqtt.io                |
 +------------+--------------------------------+
 | Phone      | 400-696-5502                   |
 +------------+--------------------------------+
 | Email      | contact@emqtt.io               |
-+------------+--------------------------------+
-| Wechat     | emqttd                         |
-+------------+--------------------------------+
-| Weibo      | http://weibo.com/emqtt         |
 +------------+--------------------------------+
 | Twitter:   | @emqtt                         |
 +------------+--------------------------------+
