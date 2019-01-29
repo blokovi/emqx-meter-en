@@ -45,7 +45,7 @@ QoS0 Message Throughput:
 | qos0-p100K-1K-0 | 0     | 100K      |       1K X 1            |      0                   | 966              |             100K      |
 +-----------------+-------+-----------+-------------------------+--------------------------+------------------+-----------------------+
 
-.. NOTE:: 1. Test machine network tuning parameters: https://developer.emqx.io/docs/emq/v3/en/tune.html , 2. 100K throughput test resut is incorrect，the reason need to be determined。
+.. NOTE:: 1. Test machine network tuning parameters: https://developer.emqx.io/docs/emq/v3/en/tune.html 
 
 System resource utilization report:
 

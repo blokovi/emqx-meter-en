@@ -21,13 +21,13 @@ Tools
 Test env
 --------
 
-EMQ version: `emqttd-ubuntu18.04-v3.0.zip`_
+EMQ version: `emqx-ubuntu18.04-v3.0.0.zip`_
 
 EMQ server: QingCloud 8 core CPU，32GB Memory，Ubuntu-18.04.1
 
 Test agent：QingCloud 8 core CPU，8GB Memeory，CentOS 7
 
-Network：Intranet of 3rd zone, Beijing QingCloud with 2000Mbps.
+Network：Intranet of 3rd zone, Beijing QingCloud with 1Gbps.
 
 -------------
 Test scenario
@@ -37,9 +37,6 @@ The test includes concurrent connection test and message throughput test, totall
 
 It could be a big test scenario combination, after considering test coverage and test result comparision etc, we designed the 33 test scenario.
 
-----------------
-Read test report
-----------------
 
 
 
@@ -47,4 +44,4 @@ Read test report
 .. _JMeter-MQTT: https://github.com/emqtt/mqtt-jmeter
 .. _JMeter: http://jmeter.apache.org
 .. _fusesource-1.14: https://github.com/fusesource/mqtt-client
-.. _emqttd-ubuntu18.04-v3.0.0.zip: https://github.com/emqx/emqx/releases/download/v3.0.0/emqx-ubuntu18.04-v3.0.0.zip
+.. _emqx-ubuntu18.04-v3.0.0.zip: https://github.com/emqx/emqx/releases/download/v3.0.0/emqx-ubuntu18.04-v3.0.0.zip

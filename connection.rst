@@ -160,7 +160,7 @@ EMQX Server Monitor
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                            |
 +================================+==========================+=====================================================================+
-| CPU shortterm Load reaches 8   | CPU usage 10%-80%        | Memory grows with increasing of connections, max value is 23.82G    |
+| CPU shortterm Load reaches 8   | CPU usage 10%-80%        | Memory grows with increasing of connections, max value is 30.52G    |
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
 
 EMQX Server Monitor
