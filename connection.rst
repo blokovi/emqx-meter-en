@@ -11,7 +11,7 @@ The test scenario test the MQTT connection between client and server side, the c
 TCP Connection
 --------------
 
-Overall: The response time is less than 15ms within 1 million connection, successful rate is 100%. Memory usage is in line with increasing of connections. CPU usage is stable, but observed surge of CPU usage when connections are disconnectd.
+Overall: The response time is less than 8ms within 1 million connection, successful rate is 100%. Memory usage is in line with increasing of connections. CPU usage is stable, but observed surge of CPU usage when connections are disconnectd.
 
 .. NOTE:: Test agent configuration：1 VM runs 50000 VU (2 dockers*25000 VU)
 
@@ -21,16 +21,19 @@ Overall: The response time is less than 15ms within 1 million connection, succes
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 | Virtual user number | Conn per second | Test duration (Sec) | Average throughput | Average response time | Max response time | Min response time | Sussessful rate |
 +=====================+=================+=====================+====================+=======================+===================+===================+=================+
-|    300000           |        1000     |         600         |     912            |     9ms               |     7.02s         |    1ms            | 100%            | 
+|    300000           |        1000     |         1800        |     909            |     8ms               |     3.143s        |    1ms            | 100%            |
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                          |
 +================================+==========================+===================================================================+
-| CPU shortterm load reaches 2.3 | CPU usage between 4%-31% |  Memory grows with increasing of connections, max value is 4.2GB. |
+| CPU shortterm load reaches 4   | CPU usage between 5%-26% |  Memory grows with increasing of connections, max value is 4.9GB. |
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 
-300k connection online test report: https://www.xmeter.net/commercialPage.html#/testrunMonitor/895167331
+EMQX Server Monitor
+
+.. image:: _static/images/tcp_30W.png
+
 
 500k conn
 ---------
@@ -38,40 +41,46 @@ Overall: The response time is less than 15ms within 1 million connection, succes
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 | Virtual user number | Conn per second | Test duration (Sec) | Average throughput | Average response time | Max response time | Min response time | Sussessful rate |
 +=====================+=================+=====================+====================+=======================+===================+===================+=================+
-|      500000         |    1000         |         900         |      966           |       14ms            |     7.04s         |     1ms           |       100%      |
+|      500000         |    1000         |         1800        |      943           |       7ms             |     2.460s         |     1ms           |       100%      |
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                          |
 +================================+==========================+===================================================================+
-| CPU shortterm load reaches 3.9 | CPU usage between 7%-65% |  Memory grows with increasing of connections, max value is 7.05G  |
+| CPU shortterm load reaches 5   | CPU usage between 15%-40%|  Memory grows with increasing of connections, max value is 7.79G  |
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 
-500k connection online test report: https://www.xmeter.net/commercialPage.html#/testrunMonitor/1231188268
+EMQX Server Monitor
+
+.. image:: _static/images/tcp_50W.png
+
 
 1 million conn
 --------------
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 | Virtual user number | Conn per second | Test duration (Sec) | Average throughput | Average response time | Max response time | Min response time | Sussessful rate |
 +=====================+=================+=====================+====================+=======================+===================+===================+=================+
-|         1000000     |  1000           |        1200         |        961         |           7ms         |       10.01s      |        1ms        |     100%        |
+|         1000000     |  1000           |        1800         |        960         |           7ms         |       3.707s      |        1ms        |     100%        |
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                          |
 +================================+==========================+===================================================================+
-| CPU shortterm Load reaches 6   | CPU usage between 6%-80% | Memory grows with increasing of connections, max value is 13.4G   |
+| CPU shortterm Load reaches 7   | CPU usage between 20%-50% | Memory grows with increasing of connections, max value is 22.66G |
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 
-1 million connection online test report: https://www.xmeter.net/commercialPage.html#/testrunMonitor/2084906193
+EMQX Server Monitor
+
+.. image:: _static/images/tcp_100W.png
 
 ------------------
 SSL authentication
 ------------------
 
-Overall: The EMQ response time is less than 50ms within 200k connections (configured with not auto reconnect after disconnect), the successful rate is 100%, the CPU and memory usage are also normal. But with the default configuration of fusesource (auto reconnrect after disconnect), then it produces lots of re-connect request, and with 300k connection test, we observed additional 50% of connect request, which actual established connection is less than 300k. It possibly caused by EMQ disconnect automatically when detecting same client re-connect for the 2nd time. In such configuration, all of 24GB mememory is exhausted.
+Overall: The EMQ response time is less than 34ms within 200k connections (configured with not auto reconnect after disconnect), the successful rate is 100%, the CPU and memory usage are also normal.
 
-.. NOTE:: Test agent configuration：1 VM 30000 VU (2 dockers*15000 VU)
+
+.. NOTE:: Test agent configuration：1 VM 20000 VU (2 dockers*10000 VU)
 
 100k conn
 ---------
@@ -79,15 +88,18 @@ Overall: The EMQ response time is less than 50ms within 200k connections (config
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 | Virtual user number | Conn per second | Test duration (Sec) | Average throughput | Average response time | Max response time | Min response time | Sussessful rate |
 +=====================+=================+=====================+====================+=======================+===================+===================+=================+
-|       100000        |    500          |        400          |     467            |      41ms             |     7.58s         |     6ms           | 100%            |
+|       100000        |    1000         |        1800         |     800            |      15ms             |     2.319s         |     6ms           | 100%            |
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
 +--------------------------------+--------------------------+-------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                          |
 +================================+==========================+===================================================================+
-| CPU shortterm Load reaches 5   | CPU usage < 60%          | Memory grows with increasing         | setConnectAttemptsMax=0    |
-|                                |                          | of connections, max value is 11.88G  | setReconnectAttemptsMax=0  |
+| CPU shortterm Load reaches 5.52| CPU usage 10%-65%        | Memory grows with increasing of connections, max value is 8.17 G  |
 +--------------------------------+--------------------------+--------------------------------------+----------------------------+
+
+EMQX Server Monitor
+
+.. image:: _static/images/ssl_10W.png
 
 200k conn
 ---------
@@ -100,17 +112,21 @@ Overall: The EMQ response time is less than 50ms within 200k connections (config
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                            |
 +================================+==========================+=====================================================================+
-| CPU shortterm Load reaches 6   | CPU usage < 73%          | Memory grows with increasing         | setConnectAttemptsMax=0      |
-|                                |                          | of connections, max value is 20.46G  | setReconnectAttemptsMax=0    |
+| CPU shortterm Load reaches 7   | CPU usage 10%-75%        | Memory grows with increasing of connections, max value is 15.53G    |
 +--------------------------------+--------------------------+--------------------------------------+------------------------------+
+
+EMQX Server Monitor
+
+.. image:: _static/images/ssl_20W.png
+
 
 -----------
 Dual SSL
 -----------
 
-Overall: Response time reaches second level in dual SSL connections (setConnectAttemptsMax and setReconnectAttemptsMax are set to 0), and successful rate is 86% with 200k connections, and memory is also exhausted. Comparing to SSL, dual SSL uses more than 3GB memory when there are 300k of connections.
+Overall: Response time is less than 34ms 200k dual SSL connections , and successful rate is 100% with 200k connections, and memory is also exhausted.
 
-.. NOTE:: Test agent configuration：1 VM 30000 VU (2 dockers*15000 VU)
+.. NOTE:: Test agent configuration：1 VM 20000 VU (2 dockers*10000 VU)
 
 100k conn
 ---------
@@ -118,15 +134,19 @@ Overall: Response time reaches second level in dual SSL connections (setConnectA
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 | Virtual user number | Conn per second | Test duration (Sec) | Average throughput | Average response time | Max response time | Min response time | Sussessful rate |
 +=====================+=================+=====================+====================+=======================+===================+===================+=================+
-|      100000         |     500         |       420           |     454            |      1s               |     10.06s        |    22ms           | 99.4%           |
+|      100000         |     1000        |       1800          |     769            |      27ms             |     2.700s        |     9ms           | 100%            |
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                            |
 +================================+==========================+=====================================================================+
-| CPU shortterm Load reaches 6   | CPU usage < 66%          | Memory grows with increasing         | setConnectAttemptsMax=0      |
-|                                |                          | of connections, max value is 14.92G  | setReconnectAttemptsMax=0    |
+| CPU shortterm Load reaches 6   | CPU usage 10%-75%        | Memory grows with increasing of connections, max value is 15.81G    |
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
+
+EMQX Server Monitor
+
+.. image:: _static/images/dual_10W.png
+
 
 200k conn
 ---------
@@ -134,12 +154,15 @@ Overall: Response time reaches second level in dual SSL connections (setConnectA
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 | Virtual user number | Conn per second | Test duration (Sec) | Average throughput | Average response time | Max response time | Min response time | Sussessful rate |
 +=====================+=================+=====================+====================+=======================+===================+===================+=================+
-|         200000      |    500          |          600        |     473            |        3s             |     11.95     s   |    22ms           | 86%             |
+|         200000      |    1000         |         1800        |     883            |        34ms           |     2.704s        |    9ms            | 100%             |
 +---------------------+-----------------+---------------------+--------------------+-----------------------+-------------------+-------------------+-----------------+
 
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
 |     CPU Load                   |      CPU usage           |                   Memory                                            |
 +================================+==========================+=====================================================================+
-| CPU shortterm Load reaches 6   | CPU usage < 77%          | Memory grows with increasing         | setConnectAttemptsMax=0      |
-|                                |                          | of connections, max value is 23.82G  | setReconnectAttemptsMax=0    |
+| CPU shortterm Load reaches 8   | CPU usage 10%-80%        | Memory grows with increasing of connections, max value is 23.82G    |
 +--------------------------------+--------------------------+---------------------------------------------------------------------+
+
+EMQX Server Monitor
+
+.. image:: _static/images/dual_20W.png
